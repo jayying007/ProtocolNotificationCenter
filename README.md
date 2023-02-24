@@ -1,7 +1,7 @@
 a protocol-based notification center which is more elegant than NSNotificationCenter.
 
 ### Before
-```
+```objc
 @interface Dog : NSObject
 @end
 
@@ -27,14 +27,14 @@ a protocol-based notification center which is more elegant than NSNotificationCe
 @end
 ```
 then post notification
-```
+```objc
 NSDictionary *userInfo = @{ @"param1" : @"hello", @"param2" : @"world", @"param3" : @404 };
 [[NSNotificationCenter defaultCenter] postNotificationName:@"CustomNotificationName" object:nil userInfo:userInfo];
 ```
 
 
 ### After
-```
+```objc
 @interface Dog : NSObject <ExampleNotification>
 @end
 
@@ -57,7 +57,7 @@ NSDictionary *userInfo = @{ @"param1" : @"hello", @"param2" : @"world", @"param3
 @end
 ```
 then post notification
-```
+```objc
 POST_NOTIFICATION(ExampleNotification, @selector(receiveNewNotify:param2:param3:), receiveNewNotify:@"hello" param2:@"world" param3:404);
 ```
 
