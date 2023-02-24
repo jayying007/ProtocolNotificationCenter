@@ -35,6 +35,10 @@ NSDictionary *userInfo = @{ @"param1" : @"hello", @"param2" : @"world", @"param3
 
 ### After
 ```objc
+@protocol ExampleNotification <NSObject>
+- (void)receiveNewNotify:(NSString *)param1 param2:(NSString *)param2 param3:(int)param3;
+@end
+
 @interface Dog : NSObject <ExampleNotification>
 @end
 
