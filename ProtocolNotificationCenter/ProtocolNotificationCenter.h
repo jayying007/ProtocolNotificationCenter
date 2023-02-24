@@ -7,12 +7,21 @@
 
 #import <Foundation/Foundation.h>
 
-//! Project version number for ProtocolNotificationCenter.
-FOUNDATION_EXPORT double ProtocolNotificationCenterVersionNumber;
+#define ADD_OBSERVER(obj, protocolName) \
+    [[ProtocolNotificationCenter defaultCenter] addObserver:obj protocol:@protocol(protocolName)]
 
-//! Project version string for ProtocolNotificationCenter.
-FOUNDATION_EXPORT const unsigned char ProtocolNotificationCenterVersionString[];
+#define REMOVE_OBSERVER(obj, protocolName) \
+    [[ProtocolNotificationCenter defaultCenter] removeObserver:obj protocol:@protocol(protocolName)]
 
-// In this header, you should import all the public headers of your framework using statements like #import <ProtocolNotificationCenter/PublicHeader.h>
+#define POST_NOTIFICATION(protocolName, sel, method) \
+    [[ProtocolNotificationCenter defaultCenter] postNotification:@protocol(protocolName) selector:sel action:^(id _Nonnull observer) { [observer method]; }]
 
+@interface ProtocolNotificationCenter : NSObject
 
++ (instancetype)defaultCenter;
+
+- (void)addObserver:(id)observer protocol:(Protocol *)protocol;
+- (void)removeObserver:(id)observer protocol:(Protocol *)protocol;
+- (void)postNotification:(Protocol *)protocol selector:(SEL)selector action:(void(^)(id observer))action;
+
+@end
